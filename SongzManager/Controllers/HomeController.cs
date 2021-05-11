@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SongzManager.DataManager;
 using SongzManager.Models;
 using System;
 using System.Collections.Generic;
@@ -12,15 +13,18 @@ namespace SongzManager.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IMusicManager _musicManager;
+        public HomeController(ILogger<HomeController> logger,IMusicManager musicManager)
         {
+            _musicManager = musicManager;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
-            return View();
+            _musicManager.Notify = new Notifier();
+            var songs = _musicManager.GetMusicThenNotify();
+            return View(songs);
         }
 
         public IActionResult Privacy()
