@@ -3,6 +3,7 @@
 }
 @model IEnumerable<SongzManager.Models.SongModel>
 @inject SongzManager.DataManager.MusicManager MusicService
+<!-- Just a comment =)) -->
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     Total Songs: <h2>@await MusicService.GetMusicCount()</h2>
